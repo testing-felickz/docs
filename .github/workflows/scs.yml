@@ -5,10 +5,19 @@ jobs:
   SCS:
     runs-on: ubuntu-latest
     steps:     
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - name: Setup NuGet.exe
+        uses: nuget/setup-nuget@v2
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
       
       - name: Set up projects
         uses: security-code-scan/security-code-scan-add-action@v1.2
+
+
 
       - name: Build
         run: |
@@ -18,4 +27,4 @@ jobs:
         uses: security-code-scan/security-code-scan-results-action@v1
         
       - name: Upload sarif	
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@v3
